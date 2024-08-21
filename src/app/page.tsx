@@ -25,7 +25,7 @@ export default async function Home() {
         upload your document and start asking your question right away
       </p>
       <Button asChild variant="secondary" className="mt-5">
-        <Link href="/dashboard">
+        <Link href="/dashboard/documents">
           Get started <ArrowRight className="ml-2 w-5 h-5" />{' '}
         </Link>
       </Button>

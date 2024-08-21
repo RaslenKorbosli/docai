@@ -1,7 +1,11 @@
 import { clerkMiddleware } from '@clerk/nextjs/server';
 
 export default clerkMiddleware((auth, req) => {
-  if (req.nextUrl.pathname.startsWith('/dashboard')) auth().protect();
+  if (
+    req.nextUrl.pathname.startsWith('/dashboard') ||
+    req.nextUrl.pathname.includes('/dashboard/')
+  )
+    auth().protect();
 });
 export const config = {
   matcher: [

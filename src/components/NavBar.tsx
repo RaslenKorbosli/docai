@@ -12,7 +12,7 @@ import { Button } from './ui/button';
 
 export default function NavBar() {
   return (
-    <nav className="sticky h-14 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-md transition-all">
+    <nav className="sticky z-10 h-14 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-md transition-all">
       <MaxWidthWrapper>
         <div className="flex justify-between items-center border-b border-zinc-200 h-14">
           <Link href="/" className="font-semibold">
@@ -29,7 +29,10 @@ export default function NavBar() {
                 </SignedIn>
                 <SignedOut>
                   <Button>
-                    <SignInButton mode="modal" fallbackRedirectUrl="/dashboard">
+                    <SignInButton
+                      mode="modal"
+                      fallbackRedirectUrl="/dashboard/documents"
+                    >
                       Sign in
                     </SignInButton>
                   </Button>

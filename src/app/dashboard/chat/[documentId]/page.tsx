@@ -5,11 +5,16 @@ import {
   ResizablePanelGroup,
 } from '@/components/ui/resizable';
 import { currentUser } from '@clerk/nextjs/server';
-import { Id } from '../../../convex/_generated/dataModel';
+import { Id } from '../../../../../convex/_generated/dataModel';
 
 import ChatMessages from '@/components/ChatMessages';
+import PdfViewer from '@/components/PdfViewer';
 
-export default async function DashboardPage() {
+export default async function DocumentChatPage({
+  params,
+}: {
+  params: { documentId: Id<'documents'> };
+}) {
   const user = await currentUser();
   if (!user) throw new Error('you must be logged in');
 
@@ -18,9 +23,9 @@ export default async function DashboardPage() {
       direction="horizontal"
       className="min-h-[calc(100vh-56px)] max-w-screen  border"
     >
-      <ResizablePanel defaultSize={70}>
-        <div className="flex h-full items-center justify-center p-6">
-          <span className="font-semibold">Header</span>
+      <ResizablePanel defaultSize={70} className="relative">
+        <div className="flex h-full justify-center   overflow-y-scroll ">
+          <PdfViewer documentId={params.documentId} />
         </div>
       </ResizablePanel>
       <ResizableHandle withHandle />

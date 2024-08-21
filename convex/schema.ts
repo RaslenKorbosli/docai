@@ -16,6 +16,6 @@ export default defineSchema({
   documents: defineTable({
     docName: v.string(),
     userId: v.string(),
-    documentId: v.id('_storage'),
+    documentStorageId: v.id('_storage'),
   }).index('by_userId', ['userId']),
 });

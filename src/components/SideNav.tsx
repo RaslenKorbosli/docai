@@ -17,9 +17,12 @@ export default function SideNav() {
           },
         }}
       >
-        <MenuItem component={<Link href="/dashboard/documents" />}> Documents</MenuItem>
-        <MenuItem component={<Link href="/calendar" />}> Calendar</MenuItem>
-        <MenuItem component={<Link href="/e-commerce" />}> E-commerce</MenuItem>
+        <MenuItem component={<Link href="/dashboard/documents" />}>
+          {' '}
+          Documents
+        </MenuItem>
+        <MenuItem component={<Link href="/dashboard/chat" />}> Chat</MenuItem>
+        <MenuItem component={<Link href="/settings" />}> Settings</MenuItem>
       </Menu>
     </Sidebar>
   );

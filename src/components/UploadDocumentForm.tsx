@@ -67,11 +67,12 @@ export default function UploadDocumentForm({
     await addDocument({
       docName: values.docName,
       userId: user.user?.id!,
-      documentId: storageId,
+      documentStorageId: storageId,
     });
     toast({
       title: 'Document add successfully',
       description: 'Start asking question about your document!',
+      className: 'bg-green-400 text-white ',
     });
 
     form.reset();
