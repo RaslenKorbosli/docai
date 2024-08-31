@@ -1,7 +1,13 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { DialogClose, DialogFooter } from '@/components/ui/dialog';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,8 +22,8 @@ import { Progress } from '@/components/ui/progress';
 import { delay } from '@/lib/helper';
 
 const formSchema = z.object({
-  docName: z.string().min(1).max(20),
-  file: z.instanceof(File),
+  fileName: z.string().min(1, { message: 'document name is required' }).max(20),
+  file: z.instanceof(File, { message: 'document is required' }),
 });
 //---------
 export default function UploadDocumentForm({
@@ -31,7 +37,7 @@ export default function UploadDocumentForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      docName: '',
+      fileName: '',
     },
   });
   const isLoading = form.formState.isSubmitting;
@@ -55,6 +61,12 @@ export default function UploadDocumentForm({
     }, 500);
   }
 
+  const types = {
+    'application/pdf': 'pdf',
+    'text/plain': 'txt',
+  };
+  type FileType = 'application/pdf' | 'text/plain';
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     progressBarTimeOut();
     const postUrl = await generateUploadUrl();
@@ -64,10 +76,17 @@ export default function UploadDocumentForm({
       body: values.file,
     });
     const { storageId } = await result.json();
+    const fileSize =
+      values.file.size < 1000000
+        ? Math.floor(values.file.size / 1000) + 'KB'
+        : Math.floor(values.file.size / 1000000) + 'MB';
+    const fileType = types[values.file.type as FileType];
     await addDocument({
-      docName: values.docName,
+      fileName: values.fileName,
       userId: user.user?.id!,
-      documentStorageId: storageId,
+      fileStorageId: storageId,
+      fileSize,
+      fileType: fileType,
     });
     toast({
       title: 'Document add successfully',
@@ -83,13 +102,14 @@ export default function UploadDocumentForm({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
         <FormField
           control={form.control}
-          name="docName"
+          name="fileName"
           render={({ field }) => (
             <FormItem className="flex-1">
               <Label>Document name</Label>
               <FormControl>
                 <Input type="text" {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -102,7 +122,7 @@ export default function UploadDocumentForm({
               <FormControl>
                 <Input
                   type="file"
-                  accept=".pdf"
+                  accept=".txt,.xml,.docx,.pdf"
                   {...restProps}
                   onChange={(event) => {
                     const file = event.target.files?.[0];
@@ -110,6 +130,7 @@ export default function UploadDocumentForm({
                   }}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

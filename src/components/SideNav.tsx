@@ -21,8 +21,16 @@ export default function SideNav() {
           {' '}
           Documents
         </MenuItem>
-        <MenuItem component={<Link href="/dashboard/chat" />}> Chat</MenuItem>
-        <MenuItem component={<Link href="/settings" />}> Settings</MenuItem>
+        <MenuItem component={<Link href="/dashboard/chat" />}>
+          {' '}
+          Chat history
+        </MenuItem>
+        <MenuItem
+          component={<Link href="https://legal-newt-27.accounts.dev/user" />}
+        >
+          {' '}
+          Settings
+        </MenuItem>
       </Menu>
     </Sidebar>
   );

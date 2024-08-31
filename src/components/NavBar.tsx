@@ -18,28 +18,22 @@ export default function NavBar() {
           <Link href="/" className="font-semibold">
             Docai.
           </Link>
-          <ul className="flex gap-6 justify-center items-center">
-            <li>
-              <Link href="/dashboard">Dashboard</Link>
-            </li>
-            <li className="space-x-4">
-              <div className="flex gap-4">
-                <SignedIn>
-                  <UserButton showName />
-                </SignedIn>
-                <SignedOut>
-                  <Button>
-                    <SignInButton
-                      mode="modal"
-                      fallbackRedirectUrl="/dashboard/documents"
-                    >
-                      Sign in
-                    </SignInButton>
-                  </Button>
-                </SignedOut>
-              </div>
-            </li>
-          </ul>
+
+          <div className="flex gap-4">
+            <SignedIn>
+              <UserButton showName />
+            </SignedIn>
+            <SignedOut>
+              <Button>
+                <SignInButton
+                  mode="modal"
+                  fallbackRedirectUrl="/dashboard/documents"
+                >
+                  Sign in
+                </SignInButton>
+              </Button>
+            </SignedOut>
+          </div>
         </div>
       </MaxWidthWrapper>
     </nav>

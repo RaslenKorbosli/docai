@@ -10,12 +10,23 @@ export default defineSchema({
   }).index('by_userId', ['userId']),
   chats: defineTable({
     userId: v.string(),
+    fileId: v.id('documents'),
     question: v.string(),
     answer: v.string(),
-  }).index('by_userId', ['userId']),
+  }).index('by_userId_fileId', ['userId', 'fileId']),
   documents: defineTable({
-    docName: v.string(),
+    fileName: v.string(),
+    fileSize: v.string(),
+    fileType: v.string(),
     userId: v.string(),
-    documentStorageId: v.id('_storage'),
+    fileStorageId: v.id('_storage'),
+    filePageContent: v.optional(v.string()),
   }).index('by_userId', ['userId']),
+  chatsHistory: defineTable({
+    userId: v.string(),
+    fileId: v.id('documents'),
+    fileTitle: v.optional(v.string()),
+    lastConversationDate: v.number(),
+    lastQuestion: v.string(),
+  }).index('by_chatId_userId', ['fileId', 'userId']),
 });

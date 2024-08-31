@@ -6,11 +6,17 @@ import { useUser } from '@clerk/clerk-react';
 import { BotMessageSquare, Ellipsis, Loader2 } from 'lucide-react';
 import { api } from '../../convex/_generated/api';
 import { RefObject, useEffect, useRef } from 'react';
-export default function ChatMessages() {
+import { Id } from '../../convex/_generated/dataModel';
+export default function ChatMessages({
+  documentId,
+}: {
+  documentId: Id<'documents'>;
+}) {
   const user = useUser();
   const ref = useRef<HTMLDivElement>(null);
 
   const chatConversation = useQuery(api.chat.getConversationRecords, {
+    fileId: documentId,
     userId: user.user?.id!,
   });
   useEffect(() => {
@@ -32,7 +38,7 @@ export default function ChatMessages() {
       ) : (
         chatConversation.map((chat) => {
           return (
-            <>
+            <div key={chat._id} className="flex flex-col gap-4 mt-2">
               <div className="bg-slate-300 rounded-lg flex gap-2 p-2 items-center w-fit self-end ">
                 <Avatar className="h-8 w-8">
                   <AvatarImage src={user.user?.imageUrl ?? ''} />
@@ -49,7 +55,7 @@ export default function ChatMessages() {
                 </div>
                 {chat.answer}
               </div>{' '}
-            </>
+            </div>
           );
         })
       )}

@@ -31,8 +31,11 @@ export default async function DocumentChatPage({
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize={30} className="min-w-[300px] ">
         <div className="flex flex-col  h-full  justify-between p-4 whitespace-pre-line ">
-          <ChatMessages />
-          <ChatForm userId={user.id as Id<'users'>} />
+          <ChatMessages documentId={params.documentId ?? ''} />
+          <ChatForm
+            userId={user.id as Id<'users'>}
+            documentId={params.documentId ?? ''}
+          />
         </div>
       </ResizablePanel>
     </ResizablePanelGroup>

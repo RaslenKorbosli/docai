@@ -1,28 +1,26 @@
 'use client';
 
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAction, useMutation, useQuery } from 'convex/react';
 import { Send } from 'lucide-react';
-import { Id } from '../../convex/_generated/dataModel';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 import { api } from '../../convex/_generated/api';
-import { useAction } from 'convex/react';
+import { Id } from '../../convex/_generated/dataModel';
 
 const formSchema = z.object({
   question: z.string().min(1).max(100),
 });
-export default function ChatForm({ userId }: { userId: Id<'users'> }) {
+export default function ChatForm({
+  userId,
+  documentId,
+}: {
+  userId: Id<'users'>;
+  documentId: Id<'documents'>;
+}) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,9 +29,31 @@ export default function ChatForm({ userId }: { userId: Id<'users'> }) {
   });
 
   const generateResponse = useAction(api.chat.generateConversation);
+  const addChatHistory = useAction(api.chat.addChatHistory);
+  const chatConversation = useQuery(api.chat.getConversationRecords, {
+    fileId: documentId,
+    userId: userId,
+  });
+  const updateLastConversationDate = useMutation(
+    api.chat.updateLastConversationDate
+  );
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await generateResponse({ question: values.question, userId: userId });
-    console.log(userId);
+    await generateResponse({
+      question: values.question,
+      userId: userId,
+      fileId: documentId,
+    });
+    chatConversation?.length === 0
+      ? addChatHistory({
+          fileId: documentId,
+          userId: userId,
+          lastQuestion: values.question,
+        })
+      : updateLastConversationDate({
+          fileId: documentId,
+          userId: userId,
+          lastQuestion: values.question,
+        });
     form.reset();
   }
 

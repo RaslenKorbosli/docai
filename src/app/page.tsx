@@ -5,8 +5,6 @@ import { ArrowRight } from 'lucide-react';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { useUser } from '@clerk/clerk-react';
 export default async function Home() {
-  // const session = await useUser();
-  // console.log(session);
   return (
     <MaxWidthWrapper className=" flex justify-center items-center flex-col mt-28 sm:mt-40 text-center">
       <div className="mx-auto mb-4 flex rounded-full overflow-hidden justify-center items-center space-x-2 max-w-fit border border-gray-200 backdrop-blur px-7 py-2 shadow-md transition-all hover:border-gray-300 bg-white hover:bg-white/50">

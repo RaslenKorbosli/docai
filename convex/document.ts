@@ -6,26 +6,30 @@ export const generateUploadUrl = mutation(async (ctx) => {
 });
 export const addDocument = mutation({
   args: {
-    docName: v.string(),
+    fileName: v.string(),
     userId: v.string(),
-    documentStorageId: v.id('_storage'),
+    fileStorageId: v.id('_storage'),
+    fileSize: v.string(),
+    fileType: v.string(),
   },
   async handler(ctx, args) {
     await ctx.db.insert('documents', {
-      docName: args.docName,
+      fileName: args.fileName,
       userId: args.userId,
-      documentStorageId: args.documentStorageId,
+      fileStorageId: args.fileStorageId,
+      fileSize: args.fileSize,
+      fileType: args.fileType,
     });
   },
 });
 export const deleteDocument = mutation({
   args: {
-    documentId: v.id('documents'),
-    documentStorageId: v.id('_storage'),
+    fileId: v.id('documents'),
+    fileStorageId: v.id('_storage'),
   },
   async handler(ctx, args) {
-    await ctx.db.delete(args.documentId);
-    await ctx.storage.delete(args.documentStorageId);
+    await ctx.db.delete(args.fileId);
+    await ctx.storage.delete(args.fileStorageId);
   },
 });
 export const getUserDocuments = query({
@@ -41,21 +45,28 @@ export const getUserDocuments = query({
 });
 export const getUserDocument = query({
   args: {
-    documentId: v.id('documents'),
+    fileId: v.id('documents'),
   },
   async handler(ctx, args) {
-    const document = await ctx.db.get(args.documentId);
+    const document = await ctx.db.get(args.fileId);
     if (!document) throw new ConvexError('document not found');
     return document;
   },
 });
 export const getDocumentFileUrl = query({
   args: {
-    documentStorageId: v.id('_storage'),
+    fileStorageId: v.id('_storage'),
   },
   async handler(ctx, args) {
-    const documentFile = await ctx.storage.getUrl(args.documentStorageId);
+    const documentFile = await ctx.storage.getUrl(args.fileStorageId);
     if (!documentFile) throw new ConvexError('document not found in storage');
     return documentFile;
+  },
+});
+export const patchDocumentContent = mutation({
+  args: { fileId: v.id('documents'), filePageContent: v.optional(v.string()) },
+
+  async handler(ctx, args) {
+    ctx.db.patch(args.fileId, { filePageContent: args.filePageContent });
   },
 });
