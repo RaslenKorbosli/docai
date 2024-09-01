@@ -29,7 +29,7 @@ export default function FilesPage() {
   });
 
   return (
-    <div className="flex-1 h-[calc(100vh-56px)] ">
+    <div className="flex-1 h-[calc(100vh-56px)] border-l-2 b-border ">
       <div className="flex py-8 md:px-20 justify-between items-center">
         <h1 className="text-2xl font-semibold">Your Documents</h1>{' '}
         <AddNewDocument />
@@ -62,7 +62,7 @@ export default function FilesPage() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="grid grid-cols-[repeat(5,150px)] justify-between items-center">
+                <TableRow className="grid grid-cols-[repeat(5,150px)] justify-between">
                   <TableHead>FileName</TableHead>
                   <TableHead>Type</TableHead>
                   <TableHead>Size</TableHead>

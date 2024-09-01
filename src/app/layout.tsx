@@ -5,6 +5,7 @@ import './globals.css';
 import NavBar from '@/components/NavBar';
 import { Toaster } from '@/components/ui/toaster';
 import { ConvexClientProvider } from '@/lib/ClerkConvexProvider';
+import { ThemeProvider } from '@/components/ThemeProvider';
 const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans',
@@ -29,7 +30,15 @@ export default function RootLayout({
       >
         <ConvexClientProvider>
           {' '}
-          <NavBar /> {children} <Toaster />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {' '}
+            <NavBar /> {children} <Toaster />
+          </ThemeProvider>{' '}
         </ConvexClientProvider>
       </body>
     </html>

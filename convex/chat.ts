@@ -118,8 +118,8 @@ export const updateLastConversationDate = mutation({
     const lastConversationDate = new Date().getTime();
     const documentChatHistory = await ctx.db
       .query('chatsHistory')
-      .withIndex('by_chatId_userId', (q) =>
-        q.eq('fileId', args.fileId).eq('userId', args.userId)
+      .withIndex('by_fileId_userId', (q) =>
+        q.eq('userId', args.userId).eq('fileId', args.fileId)
       )
       .unique();
     if (!documentChatHistory) throw new ConvexError('chat history not found');

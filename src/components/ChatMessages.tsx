@@ -1,18 +1,19 @@
 'use client';
 import { useQuery } from 'convex/react';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useUser } from '@clerk/clerk-react';
-import { BotMessageSquare, Ellipsis, Loader2 } from 'lucide-react';
+import { BotMessageSquare, Ellipsis } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import { api } from '../../convex/_generated/api';
-import { RefObject, useEffect, useRef } from 'react';
 import { Id } from '../../convex/_generated/dataModel';
+import UserImageProfile from './UserImageProfile';
 export default function ChatMessages({
   documentId,
 }: {
   documentId: Id<'documents'>;
 }) {
   const user = useUser();
+
   const ref = useRef<HTMLDivElement>(null);
 
   const chatConversation = useQuery(api.chat.getConversationRecords, {
@@ -27,7 +28,7 @@ export default function ChatMessages({
   }, [chatConversation]);
   return (
     <div className="flex flex-col gap-4 overflow-scroll max-h-[calc(100vh-56px-36px-40px)] no-scrollbar">
-      <div className="bg-slate-100 rounded-lg flex gap-2 p-2 w-fit ">
+      <div className="bg-accent text-accent-foreground rounded-lg flex gap-2 p-2 w-fit ">
         <div>
           <BotMessageSquare className="h-6 w-6" />
         </div>
@@ -38,18 +39,16 @@ export default function ChatMessages({
       ) : (
         chatConversation.map((chat) => {
           return (
-            <div key={chat._id} className="flex flex-col gap-4 mt-2">
-              <div className="bg-slate-300 rounded-lg flex gap-2 p-2 items-center w-fit self-end ">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={user.user?.imageUrl ?? ''} />
-                  <AvatarFallback className="bg-slate-200">
-                    {user.user?.firstName?.slice(0, 1)}
-                    {user.user?.lastName?.slice(0, 1)}
-                  </AvatarFallback>
-                </Avatar>
+            <div key={chat._id} className="flex flex-col gap-4 mt-2 ">
+              <div className=" bg-primary/90 text-primary-foreground  rounded-lg flex gap-2 p-2 items-center w-fit self-end ">
+                <UserImageProfile
+                  ImageUrl={user.user?.imageUrl ?? ''}
+                  firstName={user.user?.firstName ?? ''}
+                  lastName={user.user?.lastName ?? ''}
+                />
                 {chat.question}
               </div>
-              <div className="bg-slate-100 rounded-lg flex gap-2 p-2 w-fit ">
+              <div className="bg-accent text-accent-foreground rounded-lg flex gap-2 p-2 w-fit ">
                 <div>
                   <BotMessageSquare className="h-6 w-6" />
                 </div>

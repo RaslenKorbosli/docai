@@ -37,18 +37,18 @@ export default function ChatHistory({ userId }: { userId: Id<'users'> }) {
             <div key={chatHistory._id} className="flex flex-col gap-4">
               {' '}
               <Link href={`/dashboard/chat/${chatHistory.fileId}`}>
-                <div className="p-4 bg-slate-200 rounded-xl  w-80 flex flex-col gap-8 hover:shadow-lg ">
+                <div className="p-4 bg-accent hover:bg-accent/50 text-accent-foreground rounded-xl  w-80 flex flex-col gap-8 hover:shadow-lg ">
                   <div>
                     <h2 className="flex gap-2 justify-between items-center ">
                       {chatHistory.fileTitle}{' '}
-                      <MoveUpRight className="h-4 w-4 text-slate-600" />
+                      <MoveUpRight className="h-4 w-4 text-secondary-foreground/75" />
                     </h2>{' '}
-                    <p className="text-sm ml-4 text-slate-900 flex gap-2">
+                    <p className="text-sm ml-4  flex gap-2">
                       {chatHistory.lastQuestion.slice(0, 20)} ...
                     </p>
                   </div>
 
-                  <span className="self-end text-xs text-slate-700">
+                  <span className="self-end text-xs text-muted-foreground ">
                     {formatDistance(
                       chatHistory.lastConversationDate,
                       new Date(),

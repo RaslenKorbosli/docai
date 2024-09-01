@@ -25,11 +25,26 @@ export const addDocument = mutation({
 export const deleteDocument = mutation({
   args: {
     fileId: v.id('documents'),
+    userId: v.string(),
     fileStorageId: v.id('_storage'),
   },
   async handler(ctx, args) {
+    const chats = await ctx.db
+      .query('chats')
+      .withIndex('by_userId_fileId', (q) =>
+        q.eq('userId', args.userId).eq('fileId', args.fileId)
+      )
+      .collect();
+    const chatHistory = await ctx.db
+      .query('chatsHistory')
+      .withIndex('by_fileId_userId', (q) =>
+        q.eq('userId', args.userId).eq('fileId', args.fileId)
+      )
+      .unique();
     await ctx.db.delete(args.fileId);
     await ctx.storage.delete(args.fileStorageId);
+    chats.forEach(async (chat) => await ctx.db.delete(chat._id));
+    if (chatHistory !== null) await ctx.db.delete(chatHistory?._id);
   },
 });
 export const getUserDocuments = query({

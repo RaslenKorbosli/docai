@@ -28,5 +28,5 @@ export default defineSchema({
     fileTitle: v.optional(v.string()),
     lastConversationDate: v.number(),
     lastQuestion: v.string(),
-  }).index('by_chatId_userId', ['fileId', 'userId']),
+  }).index('by_fileId_userId', ['userId', 'fileId']),
 });

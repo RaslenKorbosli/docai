@@ -7,7 +7,7 @@ import { useUser } from '@clerk/clerk-react';
 export default async function Home() {
   return (
     <MaxWidthWrapper className=" flex justify-center items-center flex-col mt-28 sm:mt-40 text-center">
-      <div className="mx-auto mb-4 flex rounded-full overflow-hidden justify-center items-center space-x-2 max-w-fit border border-gray-200 backdrop-blur px-7 py-2 shadow-md transition-all hover:border-gray-300 bg-white hover:bg-white/50">
+      <div className="mx-auto mb-4 flex rounded-full overflow-hidden justify-center items-center space-x-2 max-w-fit border border-gray-200 backdrop-blur px-7 py-2 shadow-md transition-all hover:border-gray-300 bg-white  text-primary-foreground">
         <p className="text-sm font-semibold text-gray-700">
           {' '}
           docai is open to use
@@ -19,8 +19,8 @@ export default async function Home() {
         secondes
       </h1>
       <p className="mt-5 max-w-prose">
-        Docai allows you to have a conversation with your PDF document . Simply
-        upload your document and start asking your question right away
+        Docai allows you to have a conversation with your PDF/TXT document .
+        Simply upload your document and start asking your question right away
       </p>
       <Button asChild variant="secondary" className="mt-5">
         <Link href="/dashboard/documents">

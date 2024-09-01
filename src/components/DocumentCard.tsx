@@ -27,7 +27,7 @@ export default function DocumentCard({
       <CardHeader className="flex justify-between flex-row items-center ">
         <div className="flex gap-2 flex-row items-center mt-[6px]">
           {document.fileType === 'txt' ? (
-            <Image src="/txtLogo.svg" width={25} height={25} alt="pdf logo" />
+            <Image src="/txtLogo.svg" width={25} height={25} alt="txt logo" />
           ) : (
             <Image src="/pdfLogo.svg" width={25} height={25} alt="pdf logo" />
           )}
@@ -37,7 +37,7 @@ export default function DocumentCard({
         <DropMenuOptions document={document} />
       </CardHeader>
       <CardContent className="self-center ">
-        <div className="  aspect-square h-fit w-fit ">
+        <div className="  aspect-square h-fit w-fit  ">
           {document.fileType === 'txt' ? (
             <DocViewer
               documents={docs}
@@ -49,7 +49,7 @@ export default function DocumentCard({
                   retainURLParams: false,
                 },
               }}
-              style={{ overflow: 'hidden' }}
+              style={{ overflow: 'hidden', background: 'none' }}
             />
           ) : (
             <Document file={documentFileUrl} noData={''} loading={'loading...'}>
@@ -57,7 +57,6 @@ export default function DocumentCard({
                 pageNumber={1}
                 renderTextLayer={false}
                 renderAnnotationLayer={false}
-                className=""
                 scale={0.4}
                 noData="loading..."
               />

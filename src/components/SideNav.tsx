@@ -1,36 +1,58 @@
 'use client';
+import { AxeIcon, Files, HistoryIcon, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
 export default function SideNav() {
+  const menuItems = [
+    {
+      id: 1,
+      itemTitle: 'Documents',
+      href: '/dashboard/documents',
+      icon: <Files className="h-6 w-6" />,
+    },
+    {
+      id: 2,
+      itemTitle: 'Chat history',
+      href: '/dashboard/chat',
+      icon: <HistoryIcon className="h-6 w-6" />,
+    },
+    {
+      id: 3,
+      itemTitle: 'Settings',
+      href: 'https://legal-newt-27.accounts.dev/user',
+      icon: <Settings className="h-6 w-6" />,
+    },
+  ];
+
   return (
-    <Sidebar>
+    <Sidebar
+      className="dark:bg-slate-800/90 bg-slate-100 "
+      backgroundColor=""
+      style={{ borderRight: '0' }}
+    >
       <Menu
         menuItemStyles={{
           button: {
-            // the active class will be added automatically by react router
-            // so we can use it to style the active menu item
-            [`&.active`]: {
-              backgroundColor: '#13395e',
-              color: '#b6c8d9',
+            color: 'dark:#f8fafc',
+            '&:hover': {
+              backgroundColor: '#334155',
+              color: '#f8fafc',
             },
           },
         }}
+        className=""
       >
-        <MenuItem component={<Link href="/dashboard/documents" />}>
-          {' '}
-          Documents
-        </MenuItem>
-        <MenuItem component={<Link href="/dashboard/chat" />}>
-          {' '}
-          Chat history
-        </MenuItem>
-        <MenuItem
-          component={<Link href="https://legal-newt-27.accounts.dev/user" />}
-        >
-          {' '}
-          Settings
-        </MenuItem>
+        {menuItems.map((item) => (
+          <MenuItem
+            key={item.id}
+            icon={item.icon}
+            component={<Link href={item.href} />}
+          >
+            {' '}
+            {item.itemTitle}
+          </MenuItem>
+        ))}
       </Menu>
     </Sidebar>
   );

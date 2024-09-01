@@ -54,7 +54,7 @@ export default function DropMenuOptions({
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            className="text-red-600 focus:text-red-500"
+            className="text-red-500 focus:text-red-600"
             onClick={() => {
               setOpenAlert(true);
             }}
@@ -79,6 +79,7 @@ export default function DropMenuOptions({
               onClick={async () => {
                 await deleteDocument({
                   fileId: document._id,
+                  userId: document.userId,
                   fileStorageId: document.fileStorageId,
                 });
                 toast({

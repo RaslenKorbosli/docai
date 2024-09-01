@@ -59,6 +59,7 @@ export default function PdfViewer({
             overflow: 'hidden',
             padding: '16px',
             minWidth: '200px',
+            background: 'none',
           }}
         />
       ) : (
@@ -83,7 +84,7 @@ export default function PdfViewer({
           </Document>
           <div
             className={cn(
-              'absolute z-50 r-[50%] bottom-8 w-[200px] flex  items-center justify-between backdrop-blur opacity-40 hover:opacity-90 transition-all shadow-xl bg-slate-100 rounded-full'
+              'absolute z-50 r-[50%] bottom-8 w-fit flex  items-center justify-between backdrop-blur opacity-40 hover:opacity-90 transition-all shadow-xl bg-slate-100 rounded-full'
             )}
           >
             <Button
