@@ -148,8 +148,13 @@ export const internalAddChatHistory = internalMutation({
   },
 });
 export const getDocumentsChatsHistory = query({
-  args: {},
+  args: {
+    userId: v.string(),
+  },
   async handler(ctx, args) {
-    return ctx.db.query('chatsHistory').collect();
+    return await ctx.db
+      .query('chatsHistory')
+      .withIndex('by_userId', (q) => q.eq('userId', args.userId))
+      .collect();
   },
 });

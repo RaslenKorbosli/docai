@@ -9,10 +9,9 @@ import { api } from '../../convex/_generated/api';
 import { Id } from '../../convex/_generated/dataModel';
 
 export default function ChatHistory({ userId }: { userId: Id<'users'> }) {
-  const getDocumentChatsHistory = useQuery(
-    api.chat.getDocumentsChatsHistory,
-    {}
-  );
+  const getDocumentChatsHistory = useQuery(api.chat.getDocumentsChatsHistory, {
+    userId: userId,
+  });
   return (
     <div>
       {getDocumentChatsHistory === undefined ? (
