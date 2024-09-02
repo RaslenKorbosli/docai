@@ -18,7 +18,7 @@ export default function NavBar() {
   const user = useUser();
 
   return (
-    <nav className="sticky z-10 h-14 inset-x-0 top-0 w-full border-b border-border  backdrop-blur-md transition-all shadow-sm">
+    <nav className="sticky z-10 h-14 inset-x-0 top-0 w-full bg-primary/5 border-b border-border  backdrop-blur-md transition-all shadow-sm">
       <MaxWidthWrapper>
         <div className="flex justify-between items-center h-14 text-xl">
           <Link href="/" className="font-semibold">
