@@ -1,25 +1,24 @@
 'use client';
 import AddNewDocument from '@/components/AddNewDocument';
+import DocumentCard from '@/components/DocumentCard';
 import { useUser } from '@clerk/clerk-react';
 import { useQuery } from 'convex/react';
-import { api } from '../../../../convex/_generated/api';
-import Image from 'next/image';
-import DocumentCard from '@/components/DocumentCard';
-import { Doc } from '../../../../convex/_generated/dataModel';
-import { Loader2, Grid2X2, LayoutTemplate } from 'lucide-react';
 import { formatDistance } from 'date-fns';
+import { Grid2X2, LayoutTemplate, Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { api } from '../../../../convex/_generated/api';
+import { Doc } from '../../../../convex/_generated/dataModel';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import DropMenuOptions from '@/components/DropMenuOptions';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import DropMenuOptions from '@/components/DropMenuOptions';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function FilesPage() {
   const user = useUser();

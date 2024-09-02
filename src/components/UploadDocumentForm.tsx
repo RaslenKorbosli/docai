@@ -10,16 +10,15 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Progress } from '@/components/ui/progress';
+import { useUser } from '@clerk/clerk-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from 'convex/react';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { api } from '../../convex/_generated/api';
-import { useUser } from '@clerk/clerk-react';
 import { useToast } from './ui/use-toast';
-import { Progress } from '@/components/ui/progress';
-import { delay } from '@/lib/helper';
 
 const formSchema = z.object({
   fileName: z.string().min(1, { message: 'document name is required' }).max(20),

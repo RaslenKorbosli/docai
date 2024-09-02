@@ -1,9 +1,8 @@
 import { Button } from '@/components/ui/button';
 
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
-import { useUser } from '@clerk/clerk-react';
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 export default async function Home() {
   return (
     <MaxWidthWrapper className=" flex justify-center items-center flex-col mt-28 sm:mt-40 text-center">

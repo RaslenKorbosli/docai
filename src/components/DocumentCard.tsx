@@ -2,12 +2,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import '@/PDF';
 import { useQuery } from 'convex/react';
-import Image from 'next/image';
-import { Document, Page } from 'react-pdf';
+// import Image from 'next/image';
+// import { Document, Page } from 'react-pdf';
 import { api } from '../../convex/_generated/api';
 import { Doc } from '../../convex/_generated/dataModel';
-import DropMenuOptions from './DropMenuOptions';
-import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
+// import DropMenuOptions from './DropMenuOptions';
+// import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
 import '@cyntler/react-doc-viewer/dist/index.css';
 export default function DocumentCard({
   document,
@@ -24,7 +24,7 @@ export default function DocumentCard({
 
   return (
     <Card className="flex flex-col !overflow-hidden  w-[294px] h-[421px] hover:shadow-lg">
-      <CardHeader className="flex justify-between flex-row items-center ">
+      {/* <CardHeader className="flex justify-between flex-row items-center ">
         <div className="flex gap-2 flex-row items-center mt-[6px]">
           {document.fileType === 'txt' ? (
             <Image src="/txtLogo.svg" width={25} height={25} alt="txt logo" />
@@ -63,7 +63,7 @@ export default function DocumentCard({
             </Document>
           )}
         </div>
-      </CardContent>
+      </CardContent> */}
     </Card>
   );
 }
