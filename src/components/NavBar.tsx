@@ -35,12 +35,12 @@ export default function NavBar() {
                 firstName={user.user?.firstName ?? ''}
                 lastName={user.user?.lastName ?? ''}
               />
-              <Button variant="outline" className="ml-4">
+              <Button variant="outline" className="ml-4" asChild>
                 <SignOutButton redirectUrl="/">Sign out</SignOutButton>
               </Button>
             </SignedIn>
             <SignedOut>
-              <Button>
+              <Button asChild>
                 <SignInButton
                   mode="modal"
                   fallbackRedirectUrl="/dashboard/documents"
