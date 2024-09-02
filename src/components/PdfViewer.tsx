@@ -70,7 +70,13 @@ export default function PdfViewer({
           >
             <Page
               onGetTextSuccess={async ({ items }) => {
-                const text = items.map((item) => item.str).join(' ');
+                const text = items
+                  .map((item) => {
+                    if ('str' in item) {
+                      return item.str;
+                    }
+                  })
+                  .join(' ');
                 await patchDocumentData({
                   fileId: documentId,
                   filePageContent: text,
